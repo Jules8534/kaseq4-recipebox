@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from recipebox.models import Author, NewsItem
+from recipebox import views
 
 admin.site.register(Author)
 admin.site.register(NewsItem)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index)
 ]
