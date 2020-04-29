@@ -1,1 +1,17 @@
 <h1>My Page</h1>
+
+{% if data %}
+
+<ul>
+  {% for foo in data %}
+  <li>{{foo.title}}, by {{foo.author}}</li>
+  <ul>
+    <li>{{foo.body}}</li>
+  </ul>
+  {% endfor %}
+</ul>
+
+{% else %}
+<h3>OH NO!</h3>
+
+{% endif %}

@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+from recipebox.models import Author, NewsItem
+
 
 def index(request):
-    return render(request, 'index.html')
+    items = NewsItem.objects.all()
+    return render(request, 'index.html', {'data': items})
