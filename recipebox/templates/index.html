@@ -1,12 +1,12 @@
-<h1>My Page</h1>
+<h1>Recipes</h1>
 
-{% if data %}
+{% if recipes %}
 
 <ul>
-  {% for foo in data %}
-  <li>{{foo.title}}, by {{foo.author}}</li>
+  {% for recipe in recipes %}
+  <li>{{recipe.title}}, by {{recipe.author}}</li>
   <ul>
-    <li>{{foo.description}}</li>
+    <li>{{recipe.description}}</li>
   </ul>
   {% endfor %}
 </ul>

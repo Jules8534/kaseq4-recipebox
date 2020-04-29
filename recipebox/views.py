@@ -4,5 +4,6 @@ from recipebox.models import Author, Recipe
 
 
 def index(request):
-    items = Recipe.objects.all()
-    return render(request, 'index.html', {'data': items})
+    recipes = Recipe.objects.all()
+    authors = Author.objects.all()
+    return render(request, 'index.html', {'recipes': recipes, 'authors': authors})
