@@ -19,7 +19,7 @@ from recipebox import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipe/', views.recipe),
-    path('author/', views.author),
+    path('recipe/<int:num>', views.recipe),
+    path('author/<int:num>', views.author),
     path('', views.index)
 ]

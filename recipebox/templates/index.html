@@ -5,7 +5,8 @@
 <ul>
   {% for recipe in recipes %}
   <li>
-    <a href="recipe/{{recipe.id}}">{{recipe.title}}</a> by {{recipe.author}}
+    <a href="recipe/{{recipe.id}}">{{recipe.title}}</a> by
+    <a href="author/{{recipe.author.id}}">{{recipe.author}}</a>
   </li>
   <ul>
     <li>{{recipe.description}}</li>

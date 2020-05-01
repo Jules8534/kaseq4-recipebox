@@ -8,12 +8,12 @@ def index(request):
     return render(request, 'index.html', {'recipes': recipes})
 
 
-def recipe(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipe.html', {'recipes': recipes})
+def recipe(request, num=1):
+    recipe = Recipe.objects.get(id=num)
+    return render(request, 'recipe.html', {'recipe': recipe})
 
 
-def author(request):
-    recipes = Recipe.objects.all()
-    authors = Author.objects.all()
-    return render(request, 'author.html', {'recipes': recipes, 'authors': authors})
+def author(request, num=1):
+    # recipes = Recipe.objects.all()
+    author = Author.objects.get(id=num)
+    return render(request, 'author.html', {'author': author})
