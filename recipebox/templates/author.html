@@ -1,18 +1,16 @@
 <h1>Author Details</h1>
 
-<ul>
-  <li>{{author.name}}</li>
-  <ul>
-    <li>{{author.bio}}</li>
-  </ul>
-</ul>
+<h2>{{author.name}}</h2>
+
+<p><i>{{author.bio}}</i></p>
+
+<h4>Contributed Recipes:</h4>
 
 <ul>
   {% for recipe in recipes %}
-  <li><a href="/recipe/{{recipe.id}}">{{recipe.title}}</a></li>
-  <ul>
-    <li>{{recipe.description}}</li>
-  </ul>
+  <li>
+    <a href="/recipe/{{recipe.id}}">{{recipe.title}}</a>: {{recipe.description}}
+  </li>
   {% endfor %}
 </ul>
 
