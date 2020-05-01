@@ -6,3 +6,14 @@
     <li>{{author.bio}}</li>
   </ul>
 </ul>
+
+<ul>
+  {% for recipe in recipes %}
+  <li><a href="/recipe/{{recipe.id}}">{{recipe.title}}</a></li>
+  <ul>
+    <li>{{recipe.description}}</li>
+  </ul>
+  {% endfor %}
+</ul>
+
+<a href="/">Home</a>
