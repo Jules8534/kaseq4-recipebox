@@ -16,4 +16,5 @@ def recipe(request, num=1):
 def author(request, num=1):
     author = Author.objects.get(id=num)
     recipes = Recipe.objects.filter(author=author)
-    return render(request, 'author.html', {'author': author, 'recipes': recipes})
+    return render(request, 'author.html',
+                  {'author': author, 'recipes': recipes})
