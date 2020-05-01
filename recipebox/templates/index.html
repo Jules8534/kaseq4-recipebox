@@ -5,12 +5,8 @@
 <ul>
   {% for recipe in recipes %}
   <li>
-    <a href="recipe/{{recipe.id}}">{{recipe.title}}</a> by
-    <a href="author/{{recipe.author.id}}">{{recipe.author}}</a>
+    <a href="recipe/{{recipe.id}}">{{recipe.title}}</a>
   </li>
-  <ul>
-    <li><i>{{recipe.description}}</i></li>
-  </ul>
   {% endfor %}
 </ul>
 
