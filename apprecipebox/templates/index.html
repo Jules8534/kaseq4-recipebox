@@ -16,6 +16,7 @@ Are you logged in? {{ request.user.is_authenticated }} {% if recipes %}
 {% endif %}
 
 <ul>
+  <li><a href="/login">Log In</a></li>
   <li><a href="/addrecipe">Add a Recipe</a></li>
   <li><a href="/addauthor">Add an Author</a></li>
 </ul>
