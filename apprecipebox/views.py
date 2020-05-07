@@ -79,3 +79,8 @@ def loginview(request):
                 )
     form = LoginForm()
     return render(request, 'generic_form.html', {'form': form})
+
+
+def logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('homepage'))
