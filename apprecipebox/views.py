@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.contrib.auth import login, logout, authenticate
 
 from apprecipebox.models import Author, Recipe
-from apprecipebox.forms import AddRecipeForm, AddAuthorForm
+from apprecipebox.forms import AddRecipeForm, AddAuthorForm, LoginForm
 
 
 def index(request):
@@ -22,7 +23,7 @@ def author_detail(request, id):
 
 
 def add_author(request):
-    html = "author_add.html"
+    html = "generic_form.html"
 
     if request.method == "POST":
         form = AddAuthorForm(request.POST)
@@ -40,7 +41,7 @@ def add_author(request):
 
 
 def add_recipe(request):
-    html = "recipe_add.html"
+    html = "generic_form.html"
 
     if request.method == "POST":
         form = AddRecipeForm(request.POST)
@@ -59,3 +60,19 @@ def add_recipe(request):
     form = AddRecipeForm()
 
     return render(request, html, {"form": form})
+
+
+def loginview(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(
+                request, username=data['username'], password=data['password'])
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(
+                    request.GET.get('next', reverse('homepage'))
+                )
+    form = LoginForm()
+    return render(request, 'generic_form.html', {'form': form})
