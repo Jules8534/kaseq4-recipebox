@@ -26,26 +26,27 @@ def author_detail(request, id):
 
 @login_required
 def add_author(request):
-    html = "generic_form.html"
+    if request.user.is_staff:
+        html = "generic_form.html"
+        if request.method == "POST":
+            form = AddAuthorForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                new_user = User.objects.create_user(
+                    username=data['username'],
+                    password=data['password']
+                )
+                Author.objects.create(
+                    name=data['name'],
+                    bio=data['bio'],
+                    user=new_user
+                )
+                return HttpResponseRedirect(reverse('homepage'))
 
-    if request.method == "POST":
-        form = AddAuthorForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            new_user = User.objects.create_user(
-                username=data['username'],
-                password=data['password']
-            )
-            Author.objects.create(
-                name=data['name'],
-                bio=data['bio'],
-                user=new_user
-            )
-            return HttpResponseRedirect(reverse('homepage'))
+        form = AddAuthorForm()
 
-    form = AddAuthorForm()
-
-    return render(request, html, {'form': form})
+        return render(request, html, {'form': form})
+    return HttpResponseRedirect(reverse('homepage'))
 
 
 @login_required
