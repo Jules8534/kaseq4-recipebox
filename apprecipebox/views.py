@@ -13,6 +13,32 @@ def index(request):
     return render(request, 'index.html', {'recipes': recipes})
 
 
+def errorview(request):
+    html = "error.html"
+    return render(request, html)
+
+
+def loginview(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(
+                request, username=data['username'], password=data['password'])
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(
+                    request.GET.get('next', reverse('homepage'))
+                )
+    form = LoginForm()
+    return render(request, 'generic_form.html', {'form': form})
+
+
+def logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('homepage'))
+
+
 def recipe_detail(request, id):
     recipe = Recipe.objects.get(id=id)
     return render(request, 'recipe_detail.html', {'recipe': recipe})
@@ -47,7 +73,7 @@ def add_author(request):
         form = AddAuthorForm()
 
         return render(request, html, {'form': form})
-    return HttpResponseRedirect(reverse('homepage'))
+    return HttpResponseRedirect(reverse('errorpage'))
 
 
 @login_required
@@ -85,24 +111,3 @@ def add_recipe(request):
                 return HttpResponseRedirect(reverse('homepage'))
         form = AddRecipeForm()
         return render(request, html, {"form": form})
-
-
-def loginview(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            user = authenticate(
-                request, username=data['username'], password=data['password'])
-            if user:
-                login(request, user)
-                return HttpResponseRedirect(
-                    request.GET.get('next', reverse('homepage'))
-                )
-    form = LoginForm()
-    return render(request, 'generic_form.html', {'form': form})
-
-
-def logoutview(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('homepage'))

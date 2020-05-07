@@ -4,6 +4,7 @@ from apprecipebox import views
 
 urlpatterns = [
     path('', views.index, name='homepage'),
+    path('error/', views.errorview, name='errorpage'),
     path('addauthor/', views.add_author),
     path('addrecipe/', views.add_recipe),
     path('recipe/<int:id>', views.recipe_detail),
