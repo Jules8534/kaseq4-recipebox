@@ -1,6 +1,6 @@
 <h1>Recipe Box</h1>
 
-Are you logged in? {{ request.user.is_authenticated }} {% if recipes %}
+{% if recipes %}
 
 <ul>
   {% for recipe in recipes %}
@@ -11,7 +11,7 @@ Are you logged in? {{ request.user.is_authenticated }} {% if recipes %}
 </ul>
 
 {% else %}
-<h3>OH NO!</h3>
+<h3>The Recipe Box is empty.</h3>
 
 {% endif %}
 
@@ -20,3 +20,5 @@ Are you logged in? {{ request.user.is_authenticated }} {% if recipes %}
   <li><a href="/addrecipe">Add a Recipe</a></li>
   <li><a href="/addauthor">Add an Author</a></li>
 </ul>
+
+Are you logged in? {{ request.user.is_authenticated }}
