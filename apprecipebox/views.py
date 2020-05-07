@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from apprecipebox.models import Author, Recipe
-from apprecipebox.forms import AddRecipeForm, AddRecipeFormStaff, AddAuthorForm, LoginForm
+from apprecipebox.forms import (AddRecipeForm, AddRecipeFormStaff,
+                                AddAuthorForm, LoginForm)
 
 
 def index(request):

@@ -5,7 +5,8 @@
 <ul>
   {% for recipe in recipes %}
   <li>
-    <a href="recipe/{{recipe.id}}">{{recipe.title}}</a>
+    <a href="recipe/{{recipe.id}}">{{recipe.title}} </a>
+    &nbsp; <i>{{recipe.description}}</i>
   </li>
   {% endfor %}
 </ul>
