@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from apprecipebox.models import Author, Recipe
-from apprecipebox.forms import AddRecipeForm, AddAuthorForm, LoginForm
+from apprecipebox.forms import AddRecipeForm, AddRecipeFormStaff, AddAuthorForm, LoginForm
 
 
 def index(request):
@@ -52,24 +52,38 @@ def add_author(request):
 @login_required
 def add_recipe(request):
     html = "generic_form.html"
+    if request.user.is_staff:
+        if request.method == "POST":
+            form = AddRecipeFormStaff(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                Recipe.objects.create(
+                    title=data['title'],
+                    author=data['author'],
+                    description=data['description'],
+                    timeRequired=data['timeRequired'],
+                    instructions=data['instructions'],
 
-    if request.method == "POST":
-        form = AddRecipeForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            Recipe.objects.create(
-                title=data['title'],
-                author=data['author'],
-                description=data['description'],
-                timeRequired=data['timeRequired'],
-                instructions=data['instructions'],
+                )
+                return HttpResponseRedirect(reverse('homepage'))
+        form = AddRecipeFormStaff()
+        return render(request, html, {"form": form})
+    else:
+        if request.method == "POST":
+            form = AddRecipeForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                Recipe.objects.create(
+                    title=data['title'],
+                    author=request.user.author,
+                    description=data['description'],
+                    timeRequired=data['timeRequired'],
+                    instructions=data['instructions'],
 
-            )
-            return HttpResponseRedirect(reverse('homepage'))
-
-    form = AddRecipeForm()
-
-    return render(request, html, {"form": form})
+                )
+                return HttpResponseRedirect(reverse('homepage'))
+        form = AddRecipeForm()
+        return render(request, html, {"form": form})
 
 
 def loginview(request):
