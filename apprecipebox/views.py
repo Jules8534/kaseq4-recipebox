@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 from apprecipebox.models import Author, Recipe
 from apprecipebox.forms import AddRecipeForm, AddAuthorForm, LoginForm
@@ -22,6 +23,7 @@ def author_detail(request, id):
                   {'author': author, 'recipes': recipes})
 
 
+@login_required
 def add_author(request):
     html = "generic_form.html"
 
@@ -40,6 +42,7 @@ def add_author(request):
     return render(request, html, {'form': form})
 
 
+@login_required
 def add_recipe(request):
     html = "generic_form.html"
 
