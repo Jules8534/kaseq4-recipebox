@@ -2,11 +2,9 @@
 
 <h1>Author Details</h1>
 
-<h2>{{author.name}}</h2>
+<h3>{{author.name}}</h3>
 
 <i>{{author.bio}}</i>
-
-<h4>Contributed Recipes:</h4>
 
 <ul>
   {% for recipe in recipes %}
@@ -16,7 +14,5 @@
   </li>
   {% endfor %}
 </ul>
-
-<a href="/">Home</a>
 
 {% endblock %}
