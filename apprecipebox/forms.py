@@ -1,5 +1,5 @@
 from django import forms
-from apprecipebox.models import Author
+from apprecipebox.models import Author, Recipe
 
 
 class AddRecipeForm(forms.Form):
@@ -15,6 +15,11 @@ class AddRecipeFormStaff(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     timeRequired = forms.CharField(max_length=30)
     instructions = forms.CharField(widget=forms.Textarea)
+
+class EditRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ('title', 'description', 'instructions')
 
 
 class AddAuthorForm(forms.Form):

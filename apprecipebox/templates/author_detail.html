@@ -15,4 +15,16 @@
   {% endfor %}
 </ul>
 
+<p>
+  Favorite Recipes
+  <ul>
+    {% for recipe in author.user.favorite_recipes %}
+    <li>
+      <a href="/recipe/{{recipe.id}}">{{recipe.title}}</a>
+      &nbsp; <i>{{recipe.description}}</i>
+    </li>
+    {% endfor %}
+  </ul>
+</p>
+
 {% endblock %}

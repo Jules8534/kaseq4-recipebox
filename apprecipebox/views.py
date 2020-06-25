@@ -3,9 +3,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from django.views.generic.edit import UpdateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from apprecipebox.models import Author, Recipe
 from apprecipebox.forms import (AddRecipeForm, AddRecipeFormStaff,
-                                AddAuthorForm, LoginForm)
+                                AddAuthorForm, LoginForm, EditRecipeForm)
 
 
 def index(request):
@@ -111,3 +114,26 @@ def add_recipe(request):
                 return HttpResponseRedirect(reverse('homepage'))
         form = AddRecipeForm()
         return render(request, html, {"form": form})
+
+
+class UpdateRecipeView(LoginRequiredMixin, UpdateView):
+    model = Recipe
+    form_class = EditRecipeForm
+    template_name = 'edit_recipe.html'
+
+    def get_success_url(self):
+        return reverse('homepage')
+
+
+@login_required
+def add_to_favorite_view(request, id):
+    # get user
+    user = request.user
+
+    recipe = Recipe.objects.get(id=id)
+
+    # add recipe to user's fav list
+    # TODO
+    # user.favorite_recipes.add(recipe)
+
+    return HttpResponseRedirect(reverse('homepage'))
