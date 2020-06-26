@@ -127,13 +127,6 @@ class UpdateRecipeView(LoginRequiredMixin, UpdateView):
 
 @login_required
 def add_to_favorite_view(request, id):
-    # get user
     user = request.user
-
     recipe = Recipe.objects.get(id=id)
-
-    # add recipe to user's fav list
-    # TODO
-    # user.favorite_recipes.add(recipe)
-
     return HttpResponseRedirect(reverse('homepage'))

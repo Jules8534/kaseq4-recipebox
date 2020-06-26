@@ -18,7 +18,7 @@
 <p>
   Favorite Recipes
   <ul>
-    {% for recipe in author.user.favorite_recipes %}
+    {% for recipe in author.favorite_recipes.all %}
     <li>
       <a href="/recipe/{{recipe.id}}">{{recipe.title}}</a>
       &nbsp; <i>{{recipe.description}}</i>

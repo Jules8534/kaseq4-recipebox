@@ -3,16 +3,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-#class User(AbstractUser):
-    #favorite_recipes = models.ManyToManyField(
-    #     Recipe, blank=True, related_name='favorited_by')
-    #pass
-
 
 class Author(models.Model):
     name = models.CharField(max_length=50)
     bio = models.CharField(max_length=150)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorite_recipes = models.ManyToManyField(
+        'apprecipebox.Recipe', blank=True, related_name='favorited_by')
+    
 
     def __str__(self):
         return self.name
